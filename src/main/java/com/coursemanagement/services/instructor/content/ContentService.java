@@ -27,4 +27,6 @@ public interface ContentService {
 
     void deleteContent(Long contentId);
 
+    List<LearnerProgress> getAllLearnerProgress();
+
 }

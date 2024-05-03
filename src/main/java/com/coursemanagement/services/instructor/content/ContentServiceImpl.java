@@ -85,6 +85,8 @@ public class ContentServiceImpl implements ContentService{
     public Content updatestatusContent(String status, Long contentId) {
         Content updateContent = this.contentRepository.findById(contentId).orElseThrow(() -> new ResourceNotFoundException("Content", "content id", contentId));
 
+        System.out.println(status);
+
         updateContent.setStatus(status);
 
         return this.contentRepository.save(updateContent);
@@ -144,5 +146,10 @@ public class ContentServiceImpl implements ContentService{
     @Override
     public void deleteContent(Long contentId) {
         this.contentRepository.delete(this.contentRepository.findById(contentId).orElseThrow(() -> new ResourceNotFoundException("Content", "Content Id", contentId)));
+    }
+
+    @Override
+    public List<LearnerProgress> getAllLearnerProgress() {
+        return learnerProgressRepository.findAll();
     }
 }

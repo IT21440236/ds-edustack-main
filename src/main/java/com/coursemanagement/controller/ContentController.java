@@ -64,8 +64,8 @@ public class ContentController {
         return new ResponseEntity<LearnerProgress>(learnerProgress, HttpStatus.OK);
     }
 
-    @GetMapping("/course/content/{learnerId}/progress")
-    public ResponseEntity<Map<Long, Double>> getLearnerProgressByCourse(@PathVariable("learnerId") Long learnerId) {
+    @GetMapping("/course/content/progress")
+    public ResponseEntity<Map<Long, Double>> getLearnerProgressByCourse(@RequestParam Long learnerId) {
         Map<Long, Double> progressByCourse = contentService.getLearnerProgressByCourse(learnerId);
         return ResponseEntity.ok(progressByCourse);
     }
@@ -74,6 +74,11 @@ public class ContentController {
     public ResponseEntity<String> deleteContent(@PathVariable("contentId") Long contentId) {
         contentService.deleteContent(contentId);
         return new ResponseEntity<>("Content deleted successfully", HttpStatus.OK);
+    }
+
+    @GetMapping("/learner/all")
+    public List<LearnerProgress> getAllLearnerProgress() {
+        return contentService.getAllLearnerProgress();
     }
 
 }
