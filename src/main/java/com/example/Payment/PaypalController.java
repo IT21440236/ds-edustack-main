@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 //@RequestMapping("/payment")
+@CrossOrigin("*")
 public class PaypalController {
 
     @Autowired
