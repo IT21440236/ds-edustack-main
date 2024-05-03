@@ -128,13 +128,14 @@
                     <!--                    new-->
                     <label for="learnerId">Learner ID</label>
                     <input type="text" id="learnerId" name="learnerId" placeholder="Enter Learner ID">
+                    <button type="button" onclick="getTotalPrice()">Submit Learner ID</button>
                     <!--                    new-->
 
 
                     <label for="price">Total</label>
                     <input type="text" id="price" name="price" >
                     <label for="currency">Currency</label>
-                    <input type="text" id="currency" name="currency" placeholder="Enter Currency">
+                    <input type="text" id="currency" name="currency" placeholder="Enter Currency" >
                     <label for="method">Payment Method</label>
                     <input type="text" id="method" name="method" placeholder="Payment Method">
                     <label for="intent">Intent</label>
@@ -151,23 +152,25 @@
 </div>
 
 <script>
-    document.getElementById('learnerId').addEventListener('blur', function() {
-        var learnerId = this.value;
-        if (learnerId !== '') {
-            // Make an AJAX request to fetch the total price for the learnerId
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/' + learnerId + '/total-price', true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                    var totalPrice = parseFloat(xhr.responseText);
-                    document.getElementById('price').value = totalPrice.toFixed(2); // Assuming 'price' is the ID of the Total input field
-                }
-            };
-            xhr.send();
-        }
-    });
-</script>
+    function getTotalPrice() {
+        // Get the learner ID entered by the user
+        var learnerId = document.getElementById("learnerId").value;
 
+        // Make AJAX request to fetch total price for the learner ID
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:9090/api/v1/payments/" + learnerId + "/total-price", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Parse the response JSON
+                var totalPrice = JSON.parse(xhr.responseText);
+
+                // Set the value of the price input field
+                document.getElementById("price").value = totalPrice;
+            }
+        };
+        xhr.send();
+    }
+</script>
 
 </body>
 </html>
