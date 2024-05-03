@@ -1,10 +1,51 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <title>Insert title here</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Payment Success</h1>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Insert title here</title>
+  <title>Payment Success</title>
+  <!-- Include pdfmake library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
 </head>
 <body>
 <h1>Payment Success</h1>
+<button id="downloadPdf">Download PDF</button>
+
+<script>
+  // Function to generate and download PDF
+  document.getElementById('downloadPdf').addEventListener('click', function () {
+    // Define content for the PDF
+    var content = [
+      { text: 'Payment Success', style: 'header' },
+      { text: 'Your payment was successful. Thank you!', style: 'successMessage' }
+    ];
+
+    // Define styles
+    var styles = {
+      header: { fontSize: 24, bold: true, margin: [0, 0, 0, 20] },
+      successMessage: { fontSize: 18, margin: [0, 0, 0, 10] }
+    };
+
+    // Define PDF document
+    var docDefinition = {
+      content: content,
+      styles: styles
+    };
+
+    // Generate PDF
+    pdfMake.createPdf(docDefinition).download('payment_success.pdf');
+  });
+</script>
 </body>
 </html>
