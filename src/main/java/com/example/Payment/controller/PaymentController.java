@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
@@ -67,15 +68,21 @@ public class PaymentController {
         }
     }
 
+//    @GetMapping("/{learnerId}/payment-history")
+//    public ResponseEntity<List<Completed_Payments>> getPaymentHistoryByLearnerId(@PathVariable String learnerId) {
+//        List<Completed_Payments> paymentHistory = completedPaymentsImpl.getPaymentHistoryByLearnerId(learnerId);
+//        if (paymentHistory == null || paymentHistory.isEmpty()) {
+//            return ResponseEntity.notFound().build();
+//        } else {
+//            return ResponseEntity.ok(paymentHistory);
+//        }
+//    }
+
     @GetMapping("/{learnerId}/payment-history")
-    public ResponseEntity<List<Completed_Payments>> getPaymentHistoryByLearnerId(@PathVariable String learnerId) {
+    public ModelAndView getPaymentHistoryByLearnerId(@PathVariable String learnerId) {
         List<Completed_Payments> paymentHistory = completedPaymentsImpl.getPaymentHistoryByLearnerId(learnerId);
-        if (paymentHistory == null || paymentHistory.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(paymentHistory);
-        }
+        ModelAndView modelAndView = new ModelAndView("paymentReport");
+        modelAndView.addObject("paymentHistory", paymentHistory);
+        return modelAndView;
     }
-
-
 }
