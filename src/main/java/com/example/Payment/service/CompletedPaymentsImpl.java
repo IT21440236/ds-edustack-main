@@ -5,6 +5,8 @@ import com.example.Payment.repository.CompletedPaymentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CompletedPaymentsImpl implements CompletedPayments{
 
@@ -16,5 +18,10 @@ public class CompletedPaymentsImpl implements CompletedPayments{
     @Override
     public void saveCompletedPayment(Completed_Payments completedPayment) {
         completedPaymentsRepository.save(completedPayment);
+    }
+
+    @Override
+    public List<Completed_Payments> getPaymentHistoryByLearnerId(String learnerId) {
+        return completedPaymentsRepository.findByLearnerId(learnerId);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -30,22 +31,6 @@ public class PaymentImpl implements PaymentService{
             return null;
         }
     }
-
-//    @Override
-//    public void saveLearnerCourses(Long learnerId, Map<Long, CourseInfo> courses) {
-//        for (Map.Entry<Long, CourseInfo> entry : courses.entrySet()) {
-//            Long courseId = entry.getKey();
-//            CourseInfo courseInfo = entry.getValue();
-//
-//            Payments payment = new Payments();
-//            payment.setLearnerId(learnerId.toString());
-//            payment.setCourseName(courseInfo.getName()); // Set courseName from CourseInfo
-//            payment.setPrice(courseInfo.getPrice());
-//            payment.setDate(new Date()); // Assuming you want to set the current date
-//
-//            paymentRepository.save(payment);
-//        }
-//    }
 
     @Override
     public void saveLearnerCourses(Long learnerId, Map<Long, CourseInfo> courses) {
@@ -70,17 +55,6 @@ public class PaymentImpl implements PaymentService{
         }
     }
 
-
-
-    // Helper method to calculate the total price from the courses
-//    public double calculateTotalPrice(Map<Long, CourseInfo> courses) {
-//        double totalPrice = 0.0;
-//        for (CourseInfo courseInfo : courses.values()) {
-//            totalPrice += courseInfo.getPrice();
-//        }
-//        return totalPrice;
-//    }
-
     public double calculateTotalPrice(Map<Long, CourseInfo> courses) {
         double totalPrice = 0.0;
         for (CourseInfo courseInfo : courses.values()) {
@@ -91,8 +65,5 @@ public class PaymentImpl implements PaymentService{
         }
         return totalPrice;
     }
-
-
-
 
 }
