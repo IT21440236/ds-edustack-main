@@ -43,8 +43,8 @@ public class NotificationApplication {
 
 //	}
 
-	@PostConstruct //when the application starts, this method will be called
-	public void setup() {
-		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
-	}
+//	@PostConstruct //when the application starts, this method will be called
+//	public void setup() {
+//		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
+//	}
 }

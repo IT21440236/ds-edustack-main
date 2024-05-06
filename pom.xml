@@ -53,12 +53,17 @@
 			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.twilio.sdk/twilio -->
+		<!--SMS-->
 		<dependency>
 			<groupId>com.twilio.sdk</groupId>
 			<artifactId>twilio</artifactId>
 			<version>9.9.1</version>
 		</dependency>
-
+		<!--Email-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -94,10 +99,6 @@
 <!--			<artifactId>jackson-databind</artifactId>-->
 <!--			<version>2.16.1</version>-->
 <!--		</dependency>-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
