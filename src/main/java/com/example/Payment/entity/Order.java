@@ -1,4 +1,4 @@
-package com.example.Payment;
+package com.example.Payment.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

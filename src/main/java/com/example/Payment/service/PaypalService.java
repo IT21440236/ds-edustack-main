@@ -1,4 +1,4 @@
-package com.example.Payment;
+package com.example.Payment.service;
 
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;

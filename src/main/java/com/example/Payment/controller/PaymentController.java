@@ -5,6 +5,7 @@ import com.example.Payment.service.CompletedPaymentsImpl;
 import com.example.Payment.service.PaymentClient;
 import com.example.Payment.service.PaymentImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +50,17 @@ public class PaymentController {
             return ResponseEntity.ok(totalPrice);
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/updatePaymentStatus/{learnerId}")
+    public ResponseEntity<String> updatePaymentStatusForAllCourses(@PathVariable Long learnerId) {
+        ResponseEntity<Void> response = paymentClient.updatePaymentStatusForAllCourses(learnerId);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            return ResponseEntity.ok("Payment status updated successfully for learner with ID: " + learnerId);
+        } else {
+            return ResponseEntity.status(response.getStatusCode()).body("Failed to update payment status for learner with ID: " + learnerId);
         }
     }
 

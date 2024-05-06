@@ -1,18 +1,30 @@
-package com.example.Payment;
+package com.example.Payment.controller;
 
+import com.example.Payment.service.PaypalService;
 import com.example.Payment.entity.Completed_Payments;
-import com.example.Payment.entity.Payments;
 import com.example.Payment.service.CompletedPaymentsImpl;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import javax.servlet.http.HttpServletRequest;
+
+
+
 
 @Controller
 //@RequestMapping("/payment")
 @CrossOrigin("*")
+@ComponentScan
 public class PaypalController {
 
     @Autowired
@@ -20,6 +32,11 @@ public class PaypalController {
 
     @Autowired
     CompletedPaymentsImpl completedPaymentsImpl;
+
+    @Autowired
+    RestTemplate restTemplate;
+
+
 
     public static final String SUCCESS_URL = "pay/success";
     public static final String CANCEL_URL = "pay/cancel";
@@ -58,6 +75,7 @@ public class PaypalController {
             Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
                     order.getIntent(), order.getDescription(), "http://localhost:9090/" + CANCEL_URL,
                     "http://localhost:9090/" + SUCCESS_URL);
+
             for(Links link:payment.getLinks()) {
                 if(link.getRel().equals("approval_url")) {
                     return "redirect:"+link.getHref();
@@ -88,4 +106,40 @@ public class PaypalController {
         }
         return "redirect:/";
     }
+
+//    @GetMapping(value = SUCCESS_URL)
+//    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, HttpServletRequest request) {
+//        try {
+//            Payment payment = service.executePayment(paymentId, payerId);
+//            System.out.println(payment.toJSON());
+//            if (payment.getState().equals("approved")) {
+//                // Extract learnerId from the form data
+//                String learnerId = request.getParameter("learnerId");
+//
+//                // Prepare request body with learnerId
+//                HttpHeaders headers = new HttpHeaders();
+//                headers.setContentType(MediaType.APPLICATION_JSON);
+//                HttpEntity<String> entity = new HttpEntity<>(null, headers);
+//
+//                // Make a request to update payment status
+//                ResponseEntity<String> response = restTemplate.exchange(
+//                        "http://localhost:9090/updatePaymentStatus/" + learnerId,
+//                        HttpMethod.PUT,
+//                        entity,
+//                        String.class
+//                );
+//
+//                // Check the response and return appropriate view
+//                if (response.getStatusCode().is2xxSuccessful()) {
+//                    return "success"; // Or any other success view
+//                } else {
+//                    return "error"; // Or any other error view
+//                }
+//            }
+//        } catch (PayPalRESTException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return "redirect:/";
+//    }
+
 }

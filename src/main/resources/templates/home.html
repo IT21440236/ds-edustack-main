@@ -145,6 +145,8 @@
 
                 </div>
 
+
+                <button type="button" onclick="confirmPayment()"> Confirm payment </button>
                 <input type="submit" value="Continue to checkout" class="btn">
             </form>
         </div>
@@ -166,6 +168,23 @@
 
                 // Set the value of the price input field
                 document.getElementById("price").value = totalPrice;
+            }
+        };
+        xhr.send();
+    }
+
+
+    function confirmPayment() {
+        var learnerId = document.getElementById("learnerId").value;
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", "http://localhost:9090/api/v1/payments/updatePaymentStatus/" + learnerId, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    alert("Payment status updated successfully for learner with ID: " + learnerId);
+                } else {
+                    alert("Failed to update payment status for learner with ID: " + learnerId);
+                }
             }
         };
         xhr.send();
