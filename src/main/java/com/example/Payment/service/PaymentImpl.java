@@ -73,13 +73,25 @@ public class PaymentImpl implements PaymentService{
 
 
     // Helper method to calculate the total price from the courses
+//    public double calculateTotalPrice(Map<Long, CourseInfo> courses) {
+//        double totalPrice = 0.0;
+//        for (CourseInfo courseInfo : courses.values()) {
+//            totalPrice += courseInfo.getPrice();
+//        }
+//        return totalPrice;
+//    }
+
     public double calculateTotalPrice(Map<Long, CourseInfo> courses) {
         double totalPrice = 0.0;
         for (CourseInfo courseInfo : courses.values()) {
-            totalPrice += courseInfo.getPrice();
+            // Check if the payment status is "Not Paid"
+            if ("Not Paid".equals(courseInfo.getPaymentStatus())) {
+                totalPrice += courseInfo.getPrice();
+            }
         }
         return totalPrice;
     }
+
 
 
 
