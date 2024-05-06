@@ -1,5 +1,6 @@
 package com.example.Payment.controller;
 
+import com.example.Payment.repository.CompletedPaymentsRepository;
 import com.example.Payment.service.PaypalService;
 import com.example.Payment.entity.Completed_Payments;
 import com.example.Payment.service.CompletedPaymentsImpl;
@@ -17,8 +18,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import javax.servlet.http.HttpServletRequest;
-
-
+import java.util.Date;
 
 
 @Controller
@@ -32,6 +32,9 @@ public class PaypalController {
 
     @Autowired
     CompletedPaymentsImpl completedPaymentsImpl;
+
+    @Autowired
+    CompletedPaymentsRepository completedPaymentsRepository;
 
     @Autowired
     RestTemplate restTemplate;
@@ -68,6 +71,9 @@ public class PaypalController {
     @PostMapping("/pay")
     public String payment(@ModelAttribute("order") Completed_Payments order) {
         try {
+
+            // Set the current date
+            order.setDate(new Date());
             // Save the payment details to the completed table
             completedPaymentsImpl.saveCompletedPayment(order);
 
@@ -93,12 +99,33 @@ public class PaypalController {
         return "cancel";
     }
 
+//    @GetMapping(value = SUCCESS_URL)
+//    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
+//        try {
+//            Payment payment = service.executePayment(paymentId, payerId);
+//            System.out.println(payment.toJSON());
+//            if (payment.getState().equals("approved")) {
+//                return "success";
+//            }
+//        } catch (PayPalRESTException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return "redirect:/";
+//    }
+
+
     @GetMapping(value = SUCCESS_URL)
     public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
         try {
             Payment payment = service.executePayment(paymentId, payerId);
             System.out.println(payment.toJSON());
             if (payment.getState().equals("approved")) {
+                // Create a new Completed_Payments object
+                Completed_Payments completedPayment = new Completed_Payments();
+                completedPayment.setId(paymentId); // Set the payment ID
+//                completedPayment.setDate(new Date()); // Set the current date
+                // Save the completed payment details
+                completedPaymentsRepository.save(completedPayment);
                 return "success";
             }
         } catch (PayPalRESTException e) {
@@ -106,40 +133,5 @@ public class PaypalController {
         }
         return "redirect:/";
     }
-
-//    @GetMapping(value = SUCCESS_URL)
-//    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, HttpServletRequest request) {
-//        try {
-//            Payment payment = service.executePayment(paymentId, payerId);
-//            System.out.println(payment.toJSON());
-//            if (payment.getState().equals("approved")) {
-//                // Extract learnerId from the form data
-//                String learnerId = request.getParameter("learnerId");
-//
-//                // Prepare request body with learnerId
-//                HttpHeaders headers = new HttpHeaders();
-//                headers.setContentType(MediaType.APPLICATION_JSON);
-//                HttpEntity<String> entity = new HttpEntity<>(null, headers);
-//
-//                // Make a request to update payment status
-//                ResponseEntity<String> response = restTemplate.exchange(
-//                        "http://localhost:9090/updatePaymentStatus/" + learnerId,
-//                        HttpMethod.PUT,
-//                        entity,
-//                        String.class
-//                );
-//
-//                // Check the response and return appropriate view
-//                if (response.getStatusCode().is2xxSuccessful()) {
-//                    return "success"; // Or any other success view
-//                } else {
-//                    return "error"; // Or any other error view
-//                }
-//            }
-//        } catch (PayPalRESTException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return "redirect:/";
-//    }
 
 }

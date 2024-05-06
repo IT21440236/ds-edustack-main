@@ -2,6 +2,7 @@ package com.example.Payment.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
 
@@ -15,8 +16,9 @@ import java.util.Date;
 public class Completed_Payments {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
     private String learnerId;
     private Double price;
     private Date date;
