@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/micro_yt/ApiGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/micro_yt/QuizService/pom.xml" />
+        <option value="$PROJECT_DIR$/micro_yt/QuestionService/pom.xml" />
+        <option value="$PROJECT_DIR$/micro_yt/ServiceRegistry/pom.xml" />
+        <option value="$PROJECT_DIR$/micro_yt/CourseManagementService/pom.xml" />
+        <option value="$PROJECT_DIR$/micro_yt/Microservices-Learning_Platform-develop/pom.xml" />
+        <option value="$PROJECT_DIR$/../learnerservice/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
