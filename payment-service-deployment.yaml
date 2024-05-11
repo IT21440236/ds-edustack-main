@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service-docker
+spec:
+  selector:
+    matchLabels:
+      app: payment-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: payment-service
+    spec:
+      containers:
+        - name: payment-service
+          image: payment-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9090
