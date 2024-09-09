@@ -30,7 +30,7 @@ The frontend is built using **Angular** and connects with the backend services. 
 
 1. **Clone the repository**:
    ```bash
-   git clone <[backend-repo-url](https://github.com/IT21440236/ds-edustack-main/)>
+   git clone <(https://github.com/IT21440236/ds-edustack-main/)>
    cd <backend-repo-folder>
    ```
 
