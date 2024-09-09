@@ -1,6 +1,5 @@
-Here’s a README file description for your **Learning Management System (LMS) Microservices Project** on GitHub:
 
----
+
 
 # Learning Management System (LMS) Microservices Project
 
