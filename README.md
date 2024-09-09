@@ -19,7 +19,7 @@ This project is a comprehensive **Learning Management System (LMS)** developed u
 - **Feign Client**: For service-to-service communication.
 - **RabbitMQ**: Message broker for asynchronous communication.
 - **Docker**: For containerizing the microservices.
-- **MySQL/PostgreSQL**: Database for storing user, course, and payment data.
+- **MySQL**: Database for storing user, course, and payment data.
 - **JWT**: Authentication and authorization.
 
 ### Frontend
@@ -30,13 +30,13 @@ The frontend is built using **Angular** and connects with the backend services. 
 
 1. **Clone the repository**:
    ```bash
-   git clone <backend-repo-url>
+   git clone <[backend-repo-url](https://github.com/IT21440236/ds-edustack-main/)>
    cd <backend-repo-folder>
    ```
 
 2. **Build and Run the Services**:
    - Use **Docker** to build and run the microservices.
-   - Ensure that **RabbitMQ** and **MySQL/PostgreSQL** are running and configured properly.
+   - Ensure that **RabbitMQ** and **MySQL** are running and configured properly.
 
 3. **Clone the Frontend**:
    - Clone and run the frontend repository from [here](https://github.com/IT21307058/ds_frontend/tree/develop).
