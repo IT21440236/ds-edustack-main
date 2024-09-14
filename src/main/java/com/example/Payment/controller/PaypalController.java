@@ -79,7 +79,7 @@ public class PaypalController {
 
             // Proceed with payment creation
             Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
-                    order.getIntent(), order.getDescription(), "http://localhost:9090/" + CANCEL_URL,
+                    "sale", order.getDescription(), "http://localhost:9090/" + CANCEL_URL,
                     "http://localhost:9090/" + SUCCESS_URL);
 
             for(Links link:payment.getLinks()) {
