@@ -146,9 +146,12 @@
                 </div>
 
 
+
                 <button type="button" onclick="confirmPayment()"> Confirm payment </button>
                 <input type="submit" value="Continue to checkout" class="btn">
             </form>
+
+            <button onclick="goBack()">Go back</button>
         </div>
     </div>
 </div>
@@ -188,6 +191,10 @@
             }
         };
         xhr.send();
+    }
+
+    function goBack() {
+        window.location.href = 'http://localhost:4200/';
     }
 </script>
 
